@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Favorite Books</title>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+        const supabaseUrl = 'https://tqmdbyligbtuiknpwtys.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxbWRieWxpZ2J0dWlrbnB3dHlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA3ODkyMTEsImV4cCI6MjAyNjM2NTIxMX0.3QEVHckRbgcMnl6mDXO9o7VavlnsMknGZNGQswCM7OA'
+        const supabase = createClient(supabaseUrl, supabaseKey)
+
+
+        async function GetData() {
+	        let { data: FavoriteBooks, error } = await supabase
+	            .from('FavoriteBooks')
+	            .select('*')
+
+	        for (let book of FavoriteBooks) {
+			    let booklist = document.getElementById('books');
+			    booklist.innerHTML += `<tr>&#13;<td>${book.Title}</td>&#13;<td>${book.Author}</td>&#13;<td>${book.ISBN}</td>&#13;</tr>`;
+	        }
+        }
+
+        GetData();
+    </script>
+</head>
+<body>
+    <table id="books">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+        </tr>
+        <tr id="title">
+        </tr>
+        <tr id="author">
+        </tr>
+        <tr id="isbn">
+        </tr>
+    </table>
+</body>
+</html>
